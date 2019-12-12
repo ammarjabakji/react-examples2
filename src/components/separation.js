@@ -15,12 +15,12 @@ export const Example2 = () => {
     setCounter(counter + incrementValue)
 
   return (
-    <div>
+    <>
       <Button onClickFunction={incrementCounter} increment={1} />
       <Button onClickFunction={incrementCounter} increment={5} />
       <Button onClickFunction={incrementCounter} increment={10} />
       <Button onClickFunction={incrementCounter} increment={100} />
       <Display message={counter} />
-    </div>
+    </>
   )
 }
