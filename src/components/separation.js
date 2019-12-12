@@ -11,7 +11,8 @@ function Display(props) {
 
 export const Example2 = () => {
   const [counter, setCounter] = useState(0)
-  const incrementCounter = i => setCounter(counter + i)
+  const incrementCounter = incrementValue =>
+    setCounter(counter + incrementValue)
 
   return (
     <div>
