@@ -1,16 +1,11 @@
 import React from 'react'
 import './App.css'
-import { Example } from './components/simplehook'
-import { Example2 } from './components/separation'
+import { GithubCards } from './components/githubCards'
 
 function App() {
   return (
     <div className="App">
-      <h1>Example 2</h1>
-      <Example />
-      <hr />
-      <h1>Example 3</h1>
-      <Example2 />
+      <GithubCards title="The GitHub Cards App" />
     </div>
   )
 }
