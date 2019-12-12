@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 
 function Button({ onClickFunction, increment }) {
+  // we added () => for passing function by reference for parameters
   const handleClick = () => onClickFunction(increment)
   return <button onClick={handleClick}>+{increment}</button>
 }
