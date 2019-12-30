@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import axios from 'axios'
 
 const CardList = ({ profiles }) => (
   <div>
@@ -10,7 +11,7 @@ const CardList = ({ profiles }) => (
       // />
 
       // this code is equivalent to the above
-      <Card {...profile} />
+      <Card key={profile.id} {...profile} />
     ))}
   </div>
 )
@@ -44,8 +45,13 @@ class Card extends Component {
 // )
 class Form extends Component {
   state = { userName: '' }
-  handleSubmit = event => {
+  handleSubmit = async event => {
     event.preventDefault()
+    const resp = await axios.get(
+      `https://api.github.com/users/${this.state.userName}`
+    )
+    this.props.onSubmit(resp.data)
+    this.setState({ userName: '' })
     console.log(this.state.userName)
   }
   render() {
@@ -64,11 +70,11 @@ class Form extends Component {
   }
 }
 
-export const GithubCards = ({ title, testData }) => {
+export const GithubCards = ({ title, testData, onSubmit }) => {
   return (
     <div>
       <div className="header">{title}</div>
-      <Form />
+      <Form onSubmit={onSubmit} />
       <CardList profiles={testData} />
     </div>
   )
