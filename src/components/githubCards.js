@@ -1,56 +1,38 @@
-import React, { Component } from 'react'
-import axios from 'axios'
+import React, { useState } from 'react'
+import GithubForm from './githubForm'
+import { CardList } from './CardList'
 
-const CardList = ({ profiles }) => (
-  <div>
-    {profiles.map(profile => (
-      <Card key={profile.id} {...profile} />
-    ))}
-  </div>
-)
-
-const Card = ({ name, avatar_url, company }) => (
-  <div className="github-profile">
-    <img src={avatar_url} alt="" />
-    <div className="info">
-      <div className="name">{name}</div>
-      <div className="company">{company}</div>
-    </div>
-  </div>
-)
-class Form extends Component {
-  state = { userName: '' }
-  handleSubmit = async event => {
-    event.preventDefault()
-    const resp = await axios.get(
-      `https://api.github.com/users/${this.state.userName}`
-    )
-    this.props.onSubmit(resp.data)
-    this.setState({ userName: '' })
-    console.log(this.state.userName)
+const DefaultData = [
+  {
+    id: '1',
+    name: 'Dan Abramov',
+    avatar_url: 'https://avatars0.githubusercontent.com/u/810438?v=4',
+    company: '@facebook'
+  },
+  {
+    id: '2',
+    name: 'Sophie Alpert',
+    avatar_url: 'https://avatars2.githubusercontent.com/u/6820?v=4',
+    company: 'Humu'
+  },
+  {
+    id: '3',
+    name: 'Sebastian Markbåge',
+    avatar_url: 'https://avatars2.githubusercontent.com/u/63648?v=4',
+    company: 'Facebook'
   }
-  render() {
-    return (
-      <form onSubmit={this.handleSubmit}>
-        <input
-          type="text"
-          value={this.state.userName}
-          onChange={event => this.setState({ userName: event.target.value })}
-          placeholder="GitHub username"
-          required
-        />
-        <button>Add card</button>
-      </form>
-    )
-  }
-}
+]
 
-export const GithubCards = ({ title, testData, onSubmit }) => {
+export const GithubCards = ({ title }) => {
+  const [data, setData] = useState(DefaultData)
+  const addNewProfile = profileData => {
+    setData([...data, profileData])
+  }
   return (
     <div>
       <div className="header">{title}</div>
-      <Form onSubmit={onSubmit} />
-      <CardList profiles={testData} />
+      <GithubForm addCard={addNewProfile} />
+      <CardList profiles={data} />
     </div>
   )
 }
